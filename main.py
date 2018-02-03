@@ -44,26 +44,27 @@ def processComment(comment):
 
     for link in doclinks:
         try:
-            req = urllib.request.urlopen(link)
-            # check if we've been redirected to a login page, which means we
-            # don't have access
-            if re.search("ServiceLogin", req.geturl()):
-                if ourComment is None:
-                    # post a comment
-                    print("    Comment: " + comment.id)
-                    replyToCommment(comment)
-                    break
+            with urllib.request.urlopen(link) as req:
+                # check if we've been redirected to a login page, which means we
+                # don't have access
+                if re.search("ServiceLogin", req.geturl()):
+                    if ourComment is None:
+                        # post a comment
+                        print("    Comment: " + comment.id)
+                        replyToCommment(comment)
+                        break
 
-            else:
-                if ourComment is not None:
-                    # we already replied, make sure the comment is updated
-                    # because the link works now
-                    print("    Comment: " + comment.id)
-                    updateComment(ourComment)
-                    break
+                else:
+                    if ourComment is not None:
+                        # we already replied, make sure the comment is updated
+                        # because the link works now
+                        print("    Comment: " + comment.id)
+                        updateComment(ourComment)
+                        break
 
-        except urllib.error.HTTPError:
-            print(link, "threw an error")
+        except urllib.error.HTTPError as err:
+            print("    Comment: " + comment.id)
+            print("      ERROR:", err)
 
 def processThread(thread):
     print("  Thread: " + thread.id + " " + thread.title)
