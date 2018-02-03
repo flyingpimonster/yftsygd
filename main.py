@@ -4,6 +4,7 @@ import re
 import os
 import urllib
 import sys
+import datetime
 
 body = "Hello! It looks like you forgot to share your Google Doc. You'll need to get a shareable link so the rest of us can see it. To do that, click the blue 'Share' button in the top right corner of the document, then click 'Get Shareable Link.' It is recommended that you also enable others to comment; this will allow them to leave line edits."
 footer = "\n\n-----\n\n^(I am a bot, bleep bloop. This comment was posted automatically.) [^Source ^code.](https://github.com/flyingpimonster/yftsygd) ^(My human overlord is /u/flyingpimonster)"
@@ -93,7 +94,7 @@ def processSubreddit(subName):
         stickyIndex += 1
 
 # debug info
-print("Running as /u/" + reddit.user.me().name)
+print("Running as /u/" + reddit.user.me().name + " on " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 # read the command line arguments
 for arg in sys.argv[1:]:
