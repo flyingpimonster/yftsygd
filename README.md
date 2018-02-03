@@ -14,7 +14,7 @@ To run the bot, create a file called `praw.ini` using the following template:
     [YFTSYGD]
     client_id=<client-id>
     client_secret=<client-secret>
-    user_agent=python:net.flyingpimonster.redditbots.test:v0.0.1 (by /u/flyingpimonster)
+    user_agent=python:net.flyingpimonster.redditbots.yftsygd:v0.0.1 (by /u/flyingpimonster)
     username=<username>
     password=<password>
 
