@@ -101,6 +101,17 @@ def processSubreddit(subName):
 
         stickyIndex += 1
 
+now = datetime.datetime.now()
+
+# debug info
+print("Running as /u/" + reddit.user.me().name + " on " + now.strftime("%Y-%m-%d %H:%M:%S"))
+
+# clear verified.txt once a week
+if (now.weekday() == 0 and now.hour == 0 and now.minute < 10):
+    print("Clearing verified.txt")
+    with open("verified.txt", "w"):
+        pass
+
 # Load list of already verified comments
 try:
     with open("verified.txt", "r") as file:
@@ -108,8 +119,6 @@ try:
 except:
     verified = []
 
-# debug info
-print("Running as /u/" + reddit.user.me().name + " on " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 # read the command line arguments
 for arg in sys.argv[1:]:
