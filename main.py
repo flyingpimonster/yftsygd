@@ -34,7 +34,7 @@ def replyToCommment(comment):
         print("      ERROR:", err)
 
 def processComment(comment):
-    doclinks = re.findall("https?:\/\/docs.google.com\/[^\s]*", comment.body)
+    doclinks = re.findall("https?:\/\/(?:docs|drive).google.com\/[A-Za-z0-9_/?=\-]*", comment.body)
 
     ourComment = None
     for reply in comment.replies:
