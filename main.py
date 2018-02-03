@@ -15,15 +15,14 @@ editmessage = "Edit: It looks like it's working now.\n\n~~" + body + "~~" + foot
 # Create the Reddit instance
 reddit = praw.Reddit("YFTSYGD")
 
+newverified = []
+
 def updateComment(comment):
-    if re.search("Edit", comment.body):
-        pass
-    else:
-        try:
-            comment.edit(editmessage)
-            print("      Reply: " + comment.id + " (updated)")
-        except praw.exceptions.APIException as err:
-            print("      ERROR:", err)
+    try:
+        comment.edit(editmessage)
+        print("      Reply: " + comment.id + " (updated)")
+    except praw.exceptions.APIException as err:
+        print("      ERROR:", err)
 
 
 def replyToCommment(comment):
@@ -34,6 +33,9 @@ def replyToCommment(comment):
         print("      ERROR:", err)
 
 def processComment(comment):
+    if comment.id in verified:
+        return
+
     doclinks = re.findall("https?:\/\/(?:docs|drive).google.com\/[A-Za-z0-9_/?=\-]*", comment.body)
 
     ourComment = None
@@ -55,12 +57,17 @@ def processComment(comment):
                         break
 
                 else:
+                    # add this comment to the list of comments not to check
+                    # again
+                    newverified.append(comment.id)
+
                     if ourComment is not None:
                         # we already replied, make sure the comment is updated
                         # because the link works now
-                        print("    Comment: " + comment.id)
-                        updateComment(ourComment)
-                        break
+                        if not re.search("Edit", ourComment.body):
+                            print("    Comment: " + comment.id)
+                            updateComment(ourComment)
+                            break
 
         except urllib.error.HTTPError as err:
             print("    Comment: " + comment.id)
@@ -94,6 +101,13 @@ def processSubreddit(subName):
 
         stickyIndex += 1
 
+# Load list of already verified comments
+try:
+    with open("verified.txt", "r") as file:
+        verified = file.read().splitlines()
+except:
+    verified = []
+
 # debug info
 print("Running as /u/" + reddit.user.me().name + " on " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
@@ -105,3 +119,8 @@ for arg in sys.argv[1:]:
     else:
         # process a particular thread
         processThread(reddit.submission(arg))
+
+# Write newly verified comments to verified.txt
+with open("verified.txt", "a") as file:
+    for item in newverified:
+        file.write("%s\n" % item)
