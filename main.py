@@ -68,6 +68,8 @@ def processComment(comment):
                             print("    Comment: " + comment.id)
                             updateComment(ourComment)
                             break
+                    else:
+                        print("    Comment: " + comment.id + " (ok)")
 
         except urllib.error.HTTPError as err:
             print("    Comment: " + comment.id)
@@ -119,7 +121,6 @@ try:
 except:
     verified = []
 
-
 # read the command line arguments
 for arg in sys.argv[1:]:
     if arg.startswith("r/"):
@@ -133,3 +134,6 @@ for arg in sys.argv[1:]:
 with open("verified.txt", "a") as file:
     for item in newverified:
         file.write("%s\n" % item)
+
+# Print a trailing newline to the output, for readability
+print("")
