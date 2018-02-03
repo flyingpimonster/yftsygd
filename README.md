@@ -3,6 +3,25 @@
 A simple reddit bot to tell people that their Google Docs links are not publicly
 accessible.
 
+## Functionality
+
+YFTSYGD crawls reddit threads, looking for Google Docs links in the top-level
+comments. If it finds one that it can't access, it will leave the following
+comment:
+
+> Hello! It looks like you forgot to share your Google Doc. You'll need to get a shareable link so the rest of us can see it. To do that, click the blue 'Share' button in the top right corner of the document, then click 'Get Shareable Link.' It is recommended that you also enable others to comment; this will allow them to leave line edits.
+>
+> -----
+>
+> I am a bot, bleep bloop. This comment was posted automatically. [Source code.](https://github.com/flyingpimonster/yftsygd) My human overlord is /u/flyingpimonster
+
+If it comes across a link that it has commented on already, but has been fixed,
+it will strike out its original comment and place a notice at the top:
+
+> Edit: It looks like it's working now.
+
+## Usage
+
 The following tutorial describes how to set up the bot. It assumes you know the
 basics of creating scheduled tasks, running scripts, etc. If it sounds like too
 much work, you can PM me (/u/flyingpimonster) and ask me to run it for your sub
