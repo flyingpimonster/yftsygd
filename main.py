@@ -6,7 +6,7 @@ import urllib
 import sys
 
 body = "Hello! It looks like you forgot to share your Google Doc. You'll need to get a shareable link so the rest of us can see it. To do that, click the blue 'Share' button in the top right corner of the document, then click 'Get Shareable Link.' It is recommended that you also enable others to comment; this will allow them to leave line edits."
-footer = "\n\n-----\n\n^(I am a bot, bleep bloop. This comment was posted automatically. [Source code](https://github.com/flyingpimonster/yftsygd). My human overlord is /u/flyingpimonster)"
+footer = "\n\n-----\n\n^(I am a bot, bleep bloop. This comment was posted automatically.) [^Source ^code.](https://github.com/flyingpimonster/yftsygd) ^(My human overlord is /u/flyingpimonster)"
 
 message = body + footer
 editmessage = "Edit: It looks like it's working now.\n\n~~" + body + "~~" + footer
