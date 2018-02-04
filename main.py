@@ -6,7 +6,7 @@ import urllib
 import sys
 import datetime
 
-body = "Hello! It looks like you forgot to share your Google Doc. You'll need to get a shareable link so the rest of us can see it. To do that, click the blue 'Share' button in the top right corner of the document, then click 'Get Shareable Link.' It is recommended that you also enable others to comment; this will allow them to leave line edits."
+body = "Hello! It looks like you forgot to share your Google Doc. To do that, click the blue 'Share' button in the top right corner of the document, then click 'Get Shareable Link.' The link you posted should then work. It is recommended that you also change 'anyone with the link *can view*' to 'anyone with the link *can comment.*' This way, people can leave line edits."
 footer = "\n\n-----\n\n^(I am a bot, bleep bloop. This comment was posted automatically.) [^Source ^code.](https://github.com/flyingpimonster/yftsygd) ^(My human overlord is /u/flyingpimonster)"
 
 message = body + footer
