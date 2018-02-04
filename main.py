@@ -108,8 +108,8 @@ now = datetime.datetime.now()
 # debug info
 print("Running as /u/" + reddit.user.me().name + " on " + now.strftime("%Y-%m-%d %H:%M:%S"))
 
-# clear verified.txt once a week
-if (now.weekday() == 0 and now.hour == 0 and now.minute < 10):
+# clear verified.txt once a week, on Sunday (which is day 6 in python)
+if (now.weekday() == 6 and now.hour == 0 and now.minute < 10):
     print("Clearing verified.txt")
     with open("verified.txt", "w"):
         pass
