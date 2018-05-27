@@ -36,7 +36,7 @@ def processComment(comment):
     if comment.id in verified:
         return
 
-    doclinks = re.findall("https?:\/\/(?:docs|drive).google.com\/[A-Za-z0-9_/?=\-]*", comment.body)
+    doclinks = re.findall("https?:\/\/(?:docs|drive).google.com\/[\\w/?=\-]*", comment.body)
 
     ourComment = None
     for reply in comment.replies:
@@ -49,7 +49,7 @@ def processComment(comment):
             with urllib.request.urlopen(link) as req:
                 # check if we've been redirected to a login page, which means we
                 # don't have access
-                if re.search("ServiceLogin", req.geturl()):
+                if re.search("/signin", req.geturl()) or req.getcode() == 401:
                     if ourComment is None:
                         # post a comment
                         print("    Comment: " + comment.id)
@@ -74,6 +74,7 @@ def processComment(comment):
         except urllib.error.HTTPError as err:
             print("    Comment: " + comment.id)
             print("      ERROR:", err)
+            print("      URL  :", link)
 
 def processThread(thread):
     print("  Thread: " + thread.id + " " + thread.title)
