@@ -36,7 +36,7 @@ def processComment(comment):
     if comment.id in verified:
         return
 
-    doclinks = re.findall("https?:\/\/(?:docs|drive).google.com\/[\\w/?=\-]*", comment.body)
+    doclinks = re.findall("https?:\/\/(?:docs|drive).google.com\/[\w/?=\-\\\\]*", comment.body)
 
     ourComment = None
     for reply in comment.replies:
@@ -46,7 +46,9 @@ def processComment(comment):
 
     for link in doclinks:
         try:
-            with urllib.request.urlopen(link) as req:
+            # Remove backslashes, apparently some urls put them before dashes
+            # and underscores, but we don't need them
+            with urllib.request.urlopen(link.replace("\\", "")) as req:
                 # check if we've been redirected to a login page, which means we
                 # don't have access
                 if re.search("/signin", req.geturl()) or req.getcode() == 401:
